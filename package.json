@@ -1,6 +1,6 @@
 {
   "name": "togglvest",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Toggl to Harvest Syncer",
   "main": "lib/index.js",
   "repository": {
@@ -40,7 +40,13 @@
     "rimraf": "^2.6.1"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "commander": "^2.11.0",
-    "inquirer": "^3.2.3"
+    "dotenv": "^4.0.0",
+    "form-data": "^2.3.1",
+    "inquirer": "^3.2.3",
+    "jsonfile": "^4.0.0",
+    "moment": "^2.18.1",
+    "node-fetch": "^1.7.3"
   }
 }
