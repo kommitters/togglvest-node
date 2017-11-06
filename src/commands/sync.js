@@ -18,7 +18,7 @@ const askForkWorkspace = async(workspaces) => {
   return workspace
 }
 
-const sync = async (day = moment().date(), month = moment().month(), year = moment().year()) => {
+const sync = async (day = moment().date(), month, year = moment().year()) => {
   try {
     const workspaces = await getWorkspaces()
     let workspace
@@ -29,9 +29,11 @@ const sync = async (day = moment().date(), month = moment().month(), year = mome
       workspace = workspaces[0]
     }
 
-    const date = moment({year, month, day}).startOf('day')
+    const monthIndex = month ? parseInt(month, 10) - 1 : moment().month()
+    const date = moment({year, month: monthIndex, day}).startOf('day')
     const startDate = date.format()
     const endDate = date.endOf('day').format()
+
     const timeEntries = await getTimeEntries(workspace, startDate, endDate)
     const harvestTasks = await getTasks()
 
@@ -57,7 +59,7 @@ const sync = async (day = moment().date(), month = moment().month(), year = mome
     const { confirm } = await prompt([{
       type: 'confirm',
       name: 'confirm',
-      message: 'Are you sure to sync the last Toggl Entries?'
+      message: `Are you sure to sync the Toggl entries for ${moment(startDate).format('dddd, MMMM Do YYYY')}?`
     }])
 
     if (confirm) {
