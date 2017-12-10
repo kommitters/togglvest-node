@@ -18,7 +18,7 @@ const askForkWorkspace = async(workspaces) => {
   return workspace
 }
 
-const sync = async (day = moment().date(), month, year = moment().year()) => {
+const sync = (command) => async (day = moment().date(), month, year = moment().year()) => {
   try {
     const workspaces = await getWorkspaces()
     let workspace
@@ -32,6 +32,7 @@ const sync = async (day = moment().date(), month, year = moment().year()) => {
     const monthIndex = month ? parseInt(month, 10) - 1 : moment().month()
     const date = moment({year, month: monthIndex, day}).startOf('day')
     const startDate = date.format()
+    const spentDate = command.spentDate ? moment(command.spentDate).format() : startDate
     const endDate = date.endOf('day').format()
 
     const timeEntries = await getTimeEntries(workspace, startDate, endDate)
@@ -41,7 +42,7 @@ const sync = async (day = moment().date(), month, year = moment().year()) => {
       const { id: taskId } = harvestTasks.find(t => t.name === tag)
       return {
         taskId,
-        spentDate: startDate,
+        spentDate,
         hours: parseFloat(duration),
         notes: `[${client}/${project}] ${description}`
       }
@@ -59,7 +60,7 @@ const sync = async (day = moment().date(), month, year = moment().year()) => {
     const { confirm } = await prompt([{
       type: 'confirm',
       name: 'confirm',
-      message: `Are you sure to sync the Toggl entries for ${moment(startDate).format('dddd, MMMM Do YYYY')}?`
+      message: `Are you sure to insert these time entries for ${moment(startDate).format('YYYY-MM-DD')} into Harvest on ${moment(spentDate).format('YYYY-MM-DD')}?`
     }])
 
     if (confirm) {
@@ -70,9 +71,11 @@ const sync = async (day = moment().date(), month, year = moment().year()) => {
   }
 }
 
-export default (program) =>
-  program
-  .command('sync')
-  .arguments('[day] [month] [year]')
-  .description('Sync toggl entries into harvest')
-  .action(sync)
+export default (program) => {
+  const command = program.command('sync')
+    .arguments('[day] [month] [year]')
+    .option('-s, --spentDate <date>', 'Harvest spent date')
+    .description('Sync toggl entries into harvest')
+
+  return command.action(sync(command))
+}
