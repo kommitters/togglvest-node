@@ -1,5 +1,5 @@
 import fetch from 'node-fetch'
-import { URLSearchParams } from 'url'
+import URLSearchParams from 'url-search-params'
 import { readConfig } from './config'
 
 const togglApiUrl = 'https://www.toggl.com/api/v8'
