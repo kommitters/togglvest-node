@@ -1,1 +1,6 @@
 src/
+.eslintignore
+.eslintrc
+.babelrc
+.env
+.env.sample
