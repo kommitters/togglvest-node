@@ -1,6 +1,6 @@
 {
   "name": "togglvest",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Toggl to Harvest Syncer",
   "main": "lib/index.js",
   "repository": {
