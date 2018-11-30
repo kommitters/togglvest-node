@@ -33,7 +33,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-node": "^5.1.1",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
@@ -46,7 +46,7 @@
     "form-data": "^2.3.1",
     "inquirer": "^3.2.3",
     "jsonfile": "^4.0.0",
-    "moment": "^2.18.1",
+    "moment": "^2.22.2",
     "node-fetch": "^1.7.3",
     "url-search-params": "^0.10.0"
   }
