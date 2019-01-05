@@ -13,6 +13,8 @@ syncCommand(program)
 
 program.parse(process.argv)
 
+console.log(`Using togglvest ${version}`)
+
 if (!process.argv.slice(2).length) {
   program.outputHelp()
 }
